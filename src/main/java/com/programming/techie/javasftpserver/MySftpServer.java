@@ -30,6 +30,7 @@ public class MySftpServer {
         sshd.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(new File("host.ser")));
         sshd.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
         sshd.setPasswordAuthenticator((username, password, session) -> username.equals("test") && password.equals("password"));
+        sshd.setPublickeyAuthenticator(new AuthorizedKeysAuthenticator(new File("---Location of authorized_keys ---->")));
         sshd.start();
         log.info("SFTP server started");
     }
